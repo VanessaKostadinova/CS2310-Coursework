@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import wordGame.ConcreteController;
 import wordGame.Controller;
 import wordGame.Play;
 
@@ -19,11 +20,11 @@ import wordGame.Play;
  */
 public class TUI {
 
-	private Controller controller;  
+	private ConcreteController controller;  
 	
 	private Scanner stdIn;
 	
-	public TUI(Controller controller) {
+	public TUI(ConcreteController controller) {
 		
 		this.controller = controller;
 		
