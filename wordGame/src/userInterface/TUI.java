@@ -1,12 +1,15 @@
 /**
  * 
  */
-package wordGame;
+package userInterface;
 
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
+
+import wordGame.Controller;
+import wordGame.Play;
 
 /**
  * A simple text-based user interface for the word game application.
