@@ -3,9 +3,18 @@ package wordGame;
 public class Board {
 
 	private Character[][] board;
+	private static Board boardInstance;
 	
-	public Board() {
+	private Board() {
+		createBoard();
+	}
+	
+	public static Board getBoardInstance() {
+		if(boardInstance == null) {
+			boardInstance = new Board();
+		}
 		
+		return boardInstance;
 	}
 	
 	private void createBoard() {
