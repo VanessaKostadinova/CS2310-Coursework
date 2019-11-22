@@ -31,12 +31,13 @@ public class ConcreteController implements Controller {
 	
 	@Override
 	public String refillRack() {
+		//Get list of missing characters and characters to add
 		ArrayList<Integer> missing = rack.getMissing();
 		ArrayList<Character> charsToAdd = new ArrayList<Character>();
 		Random rand = new Random();
 		
 		for(int i: missing) {
-			charsToAdd.add( (char) (rand.nextInt(26) + 96));
+			charsToAdd.add( (char) (rand.nextInt(25) + 97));
 		}
 		
 		rack.addCharacters(charsToAdd);
@@ -88,6 +89,7 @@ public class ConcreteController implements Controller {
 		return board.toString();
 	}
 
+	//Add +'s to the calculation
 	@Override
 	public String calculateScore(Play play) {
 		String[] letterPos = play.letterPositionsInRack().split("", 1);
@@ -133,5 +135,4 @@ public class ConcreteController implements Controller {
 		
 		return "Valid";
 	}
-
 }

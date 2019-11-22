@@ -4,7 +4,7 @@ package wordGame;
  * The board of the game.
  * 
  * @author Vanessa Kostadinova
- * @version 20/11/2019
+ * @version 22/11/2019
  */
 
 public class Board {

@@ -51,7 +51,7 @@ public class Rack {
 	}
 	
 	public String toString() {
-		String workingString = null;
+		String workingString = "";
 		for(Character i:rack) {
 			workingString += i;
 		}
