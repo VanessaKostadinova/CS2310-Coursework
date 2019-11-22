@@ -50,7 +50,14 @@ public class Board {
 	 * Exports the board as a string
 	 */
 	public String toString() {
-		return board.toString();
+		String workingString = "";
+		for(int i = 0; i < 10; i++) {
+			for(int c = 0; c < 10; c++) {
+				workingString += board[i][c] + ",";
+			}
+			workingString += "\n";
+		}
+		return workingString;
 	}
 	
 	/**

@@ -15,20 +15,23 @@ import utility.Rack;
 
 public class ConcreteController implements Controller {
 	
+	//Copies of the board, bag and rack instances
 	private Board board;
 	private Bag bag;
 	private Rack rack;
 	
 	public ConcreteController() {
+		//Creates the entire game
 		this.board = Board.getBoardInstance();
 		this.bag = Bag.getBagInstance();
+		//Rack size of 5
 		this.rack = Rack.getRackInstance(5);
 		new TUI(this);
 	}
 	
 	@Override
 	public String refillRack() {
-		Integer[] missing = rack.getMissing();
+		ArrayList<Integer> missing = rack.getMissing();
 		ArrayList<Character> charsToAdd = new ArrayList<Character>();
 		Random rand = new Random();
 		
@@ -36,13 +39,13 @@ public class ConcreteController implements Controller {
 			charsToAdd.add( (char) (rand.nextInt(26) + 96));
 		}
 		
-		rack.addCharacters((Character[]) charsToAdd.toArray());
+		rack.addCharacters(charsToAdd);
 		return rack.toString();
 	}
 
 	@Override
 	public String gameState() {
-		String workingString = "Board: " + board.toString() + "\n";
+		String workingString = "Board:\n" + board.toString() + "\n";
 		workingString += "Tiles: " + "\n";
 		for(Character i : rack.getRack()) {
 			workingString += " " + i + ",";

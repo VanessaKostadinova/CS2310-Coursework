@@ -17,7 +17,12 @@ public class Rack {
 
 	private Rack(int size) {
 		rack = new Character[size];
-		missing = new ArrayList<Integer>();
+		missing = new ArrayList<Integer>(size);
+		missing.add(0);
+		missing.add(1);
+		missing.add(2);
+		missing.add(3);
+		missing.add(4);
 	}
 	
 	public static Rack getRackInstance(int size) {
@@ -37,8 +42,8 @@ public class Rack {
 		missing.add(index);
 	}
 
-	public Integer[] getMissing() {
-		return (Integer[]) missing.toArray();
+	public ArrayList<Integer> getMissing() {
+		return missing;
 	}
 	
 	public Character getCharacter(int index) {
@@ -53,10 +58,10 @@ public class Rack {
 		return workingString;
 	}
 	
-	public void addCharacters(Character[] characters) {
+	public void addCharacters(ArrayList<Character> characters) {
 		int c = 0;
 		for(int i : missing) {
-			rack[i] = characters[c];
+			rack[i] = characters.get(c);
 			c++;
 		}
 	}
