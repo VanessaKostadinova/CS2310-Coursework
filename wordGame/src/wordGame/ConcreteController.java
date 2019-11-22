@@ -52,6 +52,7 @@ public class ConcreteController implements Controller {
 
 	@Override
 	public String play(Play play) {
+		//Gets the characters to place
 		String[] letterPos = play.letterPositionsInRack().split("", 1);
 		ArrayList<Character> letters = new ArrayList<Character>();
 		
@@ -66,18 +67,19 @@ public class ConcreteController implements Controller {
 		int coordX = Integer.valueOf(coords[0].toLowerCase()) - 96;
 		int coordY = Integer.valueOf(coords[1]);
 		
+		//Places characters
 		if(checkValidity(play) == "Valid") {
 			board.setTileOnBoard(coordX, coordY, letters.get(0));
-		}
-		
-		switch (play.dir()) {
-		case DOWN:
-			for(int i = 1; i <= length; i++) {
-				board.setTileOnBoard(coordX, coordY - i, letters.get(i));
-			}
-		case ACROSS:
-			for(int i = 1; i <= length; i++) {
-				board.setTileOnBoard(coordX + i, coordY, letters.get(i));
+			
+			switch (play.dir()) {
+			case DOWN:
+				for(int i = 1; i <= length; i++) {
+					board.setTileOnBoard(coordX, coordY - i, letters.get(i));
+				}
+			case ACROSS:
+				for(int i = 1; i <= length; i++) {
+					board.setTileOnBoard(coordX + i, coordY, letters.get(i));
+				}
 			}
 		}
 		return board.toString();
