@@ -1,8 +1,4 @@
-/**
- * 
- */
 package wordGame;
-
 
 /**
  * To model the information required for a play, i.e.:
