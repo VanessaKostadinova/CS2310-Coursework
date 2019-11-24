@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import userInterface.TUI;
+import utility.Bag;
+import utility.Dictionary;
 import utility.Rack;
 
 /**
  * A concrete implementation of the interface controller.
  * 
  * @author Vanessa Kostadinova
- * @version 22/11/2019
+ * @version 23/11/2019
  */
 
 public class ConcreteController implements Controller {
@@ -19,11 +21,13 @@ public class ConcreteController implements Controller {
 	private Board board;
 	private Bag bag;
 	private Rack rack;
+	private Dictionary dictionary;
 	
 	public ConcreteController() {
 		//Creates the entire game
 		this.board = Board.getBoardInstance();
 		this.bag = Bag.getBagInstance();
+		this.dictionary = Dictionary.getDictionaryInstance();
 		//Rack size of 5
 		this.rack = Rack.getRackInstance(5);
 		new TUI(this);
@@ -57,32 +61,22 @@ public class ConcreteController implements Controller {
 	@Override
 	public String play(Play play) {
 		//Gets the characters to place
-		String[] letterPos = play.letterPositionsInRack().split("", 1);
-		ArrayList<Character> letters = new ArrayList<Character>();
-		
-		for(String i:letterPos) {
-			letters.add(rack.getCharacter(Integer.valueOf(i)));
-		}
-		
-		String startCell = play.cell();
-		String[] coords = startCell.split(null, 1);
+		String[] letters = getWordFromPlay(play).split("", 1);
 		int length = play.letterPositionsInRack().length();
-		
-		int coordX = Integer.valueOf(coords[0].toLowerCase()) - 96;
-		int coordY = Integer.valueOf(coords[1]);
+		int[] coords = getCoordsFromPlay(play);
 		
 		//Places characters
 		if(checkValidity(play) == "Valid") {
-			board.setTileOnBoard(coordX, coordY, letters.get(0));
+			board.setTileOnBoard(coords[0], coords[1], letters[0]);
 			
 			switch (play.dir()) {
 			case DOWN:
 				for(int i = 1; i <= length; i++) {
-					board.setTileOnBoard(coordX, coordY - i, letters.get(i));
+					board.setTileOnBoard(coords[0], coords[1] - i, letters[i]);
 				}
 			case ACROSS:
 				for(int i = 1; i <= length; i++) {
-					board.setTileOnBoard(coordX + i, coordY, letters.get(i));
+					board.setTileOnBoard(coords[0] + i, coords[1], letters[i]);
 				}
 			}
 		}
@@ -94,45 +88,80 @@ public class ConcreteController implements Controller {
 	public String calculateScore(Play play) {
 		String[] letterPos = play.letterPositionsInRack().split("", 1);
 		ArrayList<Character> letters = new ArrayList<Character>();
+		
+		int[] coords = getCoordsFromPlay(play);
+		
 		for(String i:letterPos) {
-			letters.add(rack.getCharacter(Integer.valueOf(i)));
+			if(board.getBoard()[coords[0]][coords[1]] == "+") {
+				letters.add(rack.getCharacter(Integer.valueOf(i)));
+			}
+			
 		}
 		return "" + bag.getScore(letters);
 	}
 
 	@Override
 	public String checkValidity(Play play) {
-		String startCell = play.cell();
-		String[] coords = startCell.split(null, 1);
-		Character[][] currentBoard = board.getBoard();
+		if(boardAnalysis(play) && lexicalAnalysis(getWordFromPlay(play))){
+			return "Valid";
+		}
+		else return "Invalid";
+	}
+	
+	private boolean lexicalAnalysis(String word) {
+		return dictionary.checkWordExists(word);
+	}
+	
+	private boolean boardAnalysis(Play play) {
+		int[] coords = getCoordsFromPlay(play);
+		String[][] currentBoard = board.getBoard();
 		int length = play.letterPositionsInRack().length();
 		
-		int coordX = Integer.valueOf(coords[0].toLowerCase()) - 96;
-		int coordY = Integer.valueOf(coords[1]);
-		
 		//Checks if first letter is valid
-		if(currentBoard[coordX][coordY] == null | currentBoard[coordX][coordY] == '+') {
+		if(currentBoard[coords[0]][coords[1]] == null | currentBoard[coords[0]][coords[1]] == "+") {
 			//Checks if all subsequent letters are valid based on the direction
 			switch (play.dir()) {
 			case DOWN:
 				for(int i = 1; i <= length; i++) {
-					if(currentBoard[coordX][coordY - i] != null && currentBoard[coordX][coordY - i] != '+') {
-						return "Invalid";
+					if(currentBoard[coords[0]][coords[1] - i] != null && currentBoard[coords[0]][coords[1] - i] != "+") {
+						return false;
 					}
 				}
 			case ACROSS:
 				for(int i = 1; i <= length; i++) {
-					if(currentBoard[coordX + i][coordY] != null && currentBoard[coordX + i][coordY] != '+') {
-						return "Invalid";
+					if(currentBoard[coords[0] + i][coords[1]] != null && currentBoard[coords[0] + i][coords[1]] != "+") {
+						return false;
 					}
 				}
 			}
 			
 		}
 		else {
-			return "Invalid";
+			return false;
 		}
 		
-		return "Valid";
+		return true;
+	}
+	
+	private int[] getCoordsFromPlay(Play play){
+		int[] coords = new int[2];
+		String startCell = play.cell();
+		String[] stringCoords = startCell.split(null, 1);
+		
+		coords[0] = Integer.valueOf(stringCoords[0].toLowerCase()) - 96;
+		coords[1]= Integer.valueOf(coords[1]);
+		
+		return coords;
+	}
+	
+	private String getWordFromPlay(Play play) {
+		String workingString = "";
+		String[] letterPos = play.letterPositionsInRack().split("", 1);
+		
+		for(String i : letterPos) {
+			workingString += rack.getCharacter(Integer.valueOf(i));
+		}
+		
+		return workingString;
 	}
 }

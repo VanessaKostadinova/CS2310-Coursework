@@ -4,13 +4,13 @@ package wordGame;
  * The board of the game.
  * 
  * @author Vanessa Kostadinova
- * @version 22/11/2019
+ * @version 23/11/2019
  */
 
 public class Board {
 
 	/**The values of each tile on the board */
-	private Character[][] board;
+	private String[][] board;
 	/**The only instance of Board*/
 	private static Board boardInstance;
 	
@@ -35,15 +35,15 @@ public class Board {
 	 * Accessor for the board array.
 	 * @return Current board array.
 	 */
-	public Character[][] getBoard(){
+	public String[][] getBoard(){
 		return board;
 	}
 	
 	/*
 	 * Places a tile on the board.
 	 */
-	public void setTileOnBoard(int x, int y, Character character) {
-		board[x][y] = character;
+	public void setTileOnBoard(int x, int y, String letter) {
+		board[x][y] = letter;
 	}
 	
 	/**
@@ -64,16 +64,16 @@ public class Board {
 	 * Creates the starting board array used for calculations.
 	 */
 	private void createBoard() {
-		board = new Character[][] {
+		board = new String[][] {
 			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,null,'+','+',null,null,null,null},
+			{null,null,null,null,"+","+",null,null,null,null},
 			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,'+',null,null,'+',null,null,null},
+			{null,null,null,"+",null,null,"+",null,null,null},
 			{null,null,null,null,null,null,null,null,null,null},
 			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,'+',null,null,'+',null,null,null},
+			{null,null,null,"+",null,null,"+",null,null,null},
 			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,null,'+','+',null,null,null,null},
+			{null,null,null,null,"+","+",null,null,null,null},
 			{null,null,null,null,null,null,null,null,null,null}
 		};
 	}
