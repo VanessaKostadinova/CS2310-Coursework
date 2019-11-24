@@ -2,6 +2,8 @@ package utility;
 
 import java.util.ArrayList;
 
+import exceptions.InvalidParameterException;
+
 /**
  * A wrapper for array to make rack's time complexity better.
  * 
@@ -62,7 +64,7 @@ public class Rack {
 		return workingString;
 	}
 
-	public void addCharacters(ArrayList<Character> characters) {
+	public void addCharacters(ArrayList<Character> characters) throws InvalidParameterException {
 		if(characters.size() == missing.size()) {
 			int c = 0;
 			for(int i : missing) {
@@ -71,7 +73,7 @@ public class Rack {
 			}
 		}
 		else {
-			//throw new
+			throw new InvalidParameterException("ArrayList not valid length");
 		}
 	}
 }
