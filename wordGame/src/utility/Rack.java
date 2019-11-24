@@ -8,7 +8,7 @@ import exceptions.InvalidParameterException;
  * A wrapper for array to make rack's time complexity better.
  * 
  * @author Vanessa Kostadinova
- * @version 22/11/2019
+ * @version 24/11/2019
  */
 
 public class Rack {
@@ -71,6 +71,7 @@ public class Rack {
 				rack[i] = characters.get(c);
 				c++;
 			}
+			clearMissing();
 		}
 		else {
 			throw new InvalidParameterException("ArrayList not valid length");

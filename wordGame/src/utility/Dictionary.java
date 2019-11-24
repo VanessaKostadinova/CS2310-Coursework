@@ -34,6 +34,7 @@ public class Dictionary {
 		while(file.hasNext()) {
 			words.add(file.nextLine());
 		}
+		file.close();
 	}
 	
 	public boolean checkWordExists(String word) {

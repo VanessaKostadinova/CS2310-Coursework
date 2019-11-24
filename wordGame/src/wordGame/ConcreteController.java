@@ -3,6 +3,7 @@ package wordGame;
 import java.util.ArrayList;
 import java.util.Random;
 
+import exceptions.InvalidParameterException;
 import userInterface.TUI;
 import utility.Bag;
 import utility.Dictionary;
@@ -12,7 +13,7 @@ import utility.Rack;
  * A concrete implementation of the interface controller.
  * 
  * @author Vanessa Kostadinova
- * @version 23/11/2019
+ * @version 24/11/2019
  */
 
 public class ConcreteController implements Controller {
@@ -44,7 +45,11 @@ public class ConcreteController implements Controller {
 			charsToAdd.add( (char) (rand.nextInt(25) + 97));
 		}
 		
-		rack.addCharacters(charsToAdd);
+		try {
+			rack.addCharacters(charsToAdd);
+		} catch (InvalidParameterException e) {
+			e.printStackTrace();
+		}
 		return rack.toString();
 	}
 
