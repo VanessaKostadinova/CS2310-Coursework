@@ -1,13 +1,13 @@
-package wordGame;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class BoardTest {
+class BagTest {
 
 	@Test
-	void testSetTileOnBoard() {
+	void testGetScore() {
 		fail("Not yet implemented");
 	}
 

@@ -1,13 +1,13 @@
-package utility;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class BagTest {
+class BoardTest {
 
 	@Test
-	void testGetScore() {
+	void testSetTileOnBoard() {
 		fail("Not yet implemented");
 	}
 
