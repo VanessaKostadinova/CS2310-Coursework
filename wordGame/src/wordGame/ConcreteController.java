@@ -32,6 +32,8 @@ public class ConcreteController implements Controller {
 		//Rack size of 5
 		this.rack = Rack.getRackInstance(5);
 		new TUI(this);
+		
+		refillRack();
 	}
 
 	@Override
@@ -131,6 +133,11 @@ public class ConcreteController implements Controller {
 	private boolean lexicalAnalysis(String word) {
 		return dictionary.checkWordExists(word);
 	}
+	
+	private String nextBoardValue(Play play) {
+		
+		return "";
+	}
 
 	private boolean boardAnalysis(Play play) {
 		int[] coords = getCoordsFromPlay(play);
@@ -154,7 +161,6 @@ public class ConcreteController implements Controller {
 					}
 				}
 			}
-
 		}
 		else {
 			return false;
@@ -181,7 +187,7 @@ public class ConcreteController implements Controller {
 		for(String i : letterPos) {
 			workingString += rack.getCharacter(Integer.valueOf(i));
 		}
-
+		
 		return workingString;
 	}
 }
