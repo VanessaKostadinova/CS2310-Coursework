@@ -53,6 +53,7 @@ public class ConcreteController implements Controller {
 		return rack.toString();
 	}
 
+	//TODO fix formatting
 	@Override
 	public String gameState() {
 		String workingString = "Board:\n" + board.toString() + "\n";
@@ -88,7 +89,7 @@ public class ConcreteController implements Controller {
 		return board.toString();
 	}
 
-	//Add +'s to the calculation
+	//TODO Add +'s to the calculation
 	@Override
 	public String calculateScore(Play play) {
 		String[] letterPos = play.letterPositionsInRack().split("", 1);
