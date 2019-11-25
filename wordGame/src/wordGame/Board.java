@@ -65,16 +65,16 @@ public class Board {
 	 */
 	private void createBoard() {
 		board = new String[][] {
-			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,null,"+","+",null,null,null,null},
-			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,"+",null,null,"+",null,null,null},
-			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,"+",null,null,"+",null,null,null},
-			{null,null,null,null,null,null,null,null,null,null},
-			{null,null,null,null,"+","+",null,null,null,null},
-			{null,null,null,null,null,null,null,null,null,null}
+			{" "," "," "," "," "," "," "," "," "," "},
+			{" "," "," "," ","+","+"," "," "," "," "},
+			{" "," "," "," "," "," "," "," "," "," "},
+			{" "," "," ","+"," "," ","+"," "," "," "},
+			{" "," "," "," "," "," "," "," "," "," "},
+			{" "," "," "," "," "," "," "," "," "," "},
+			{" "," "," ","+"," "," ","+"," "," "," "},
+			{" "," "," "," "," "," "," "," "," "," "},
+			{" "," "," "," ","+","+"," "," "," "," "},
+			{" "," "," "," "," "," "," "," "," "," "}
 		};
 	}
 

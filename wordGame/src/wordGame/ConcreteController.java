@@ -92,12 +92,12 @@ public class ConcreteController implements Controller {
 	//TODO Add +'s to the calculation
 	@Override
 	public String calculateScore(Play play) {
-		String[] letterPos = play.letterPositionsInRack().split("", 1);
+		String[] letterArray = play.letterPositionsInRack().split("", 1);
 		ArrayList<Character> letters = new ArrayList<Character>();
 		
 		int[] coords = getCoordsFromPlay(play);
 		
-		for(String i:letterPos) {
+		for(String i:letterArray) {
 			if(board.getBoard()[coords[0]][coords[1]] == "+") {
 				letters.add(rack.getCharacter(Integer.valueOf(i)));
 			}
