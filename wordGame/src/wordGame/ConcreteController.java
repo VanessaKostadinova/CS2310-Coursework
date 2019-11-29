@@ -24,6 +24,9 @@ public class ConcreteController implements Controller {
 	private Rack rack;
 	private Dictionary dictionary;
 
+	/**
+	 * Constructs a concrete controller which creates an instance of every other class required.
+	 */
 	public ConcreteController() {
 		//Creates the entire game
 		this.board = Board.getBoardInstance();
@@ -67,7 +70,7 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String play(Play play) {
+	public String play(Play play) throws InvalidParameterException {
 		//Gets the characters to place
 		String[] letters = getWordFromPlay(play).split("", 1);
 		int length = play.letterPositionsInRack().length();
@@ -123,7 +126,7 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String checkValidity(Play play) {
+	public String checkValidity(Play play) throws InvalidParameterException {
 		if(boardAnalysis(play) && lexicalAnalysis(getWordFromPlay(play))){
 			return "Valid";
 		}
@@ -132,11 +135,6 @@ public class ConcreteController implements Controller {
 
 	private boolean lexicalAnalysis(String word) {
 		return dictionary.checkWordExists(word);
-	}
-	
-	private String nextBoardValue(Play play) {
-		
-		return "";
 	}
 
 	private boolean boardAnalysis(Play play) {
@@ -169,10 +167,15 @@ public class ConcreteController implements Controller {
 		return true;
 	}
 
+	/**
+	 * Fetches the initial coordinates in integer format from the play given.
+	 * @param play
+	 * @return int[] where int[0] is the x coordinate and int[1] is the y coordinate.
+	 */
 	private int[] getCoordsFromPlay(Play play){
 		int[] coords = new int[2];
 		String startCell = play.cell();
-		String[] stringCoords = startCell.split(null, 1);
+		String[] stringCoords = startCell.split("", 1);
 
 		coords[0] = Integer.valueOf(stringCoords[0].toLowerCase()) - 96;
 		coords[1]= Integer.valueOf(coords[1]);
@@ -180,12 +183,20 @@ public class ConcreteController implements Controller {
 		return coords;
 	}
 
-	private String getWordFromPlay(Play play) {
+	/**
+	 * Gets the word from the rack created by the play coordinates given.
+	 * @param play
+	 * @return
+	 */
+	private String getWordFromPlay(Play play) throws InvalidParameterException {
 		String workingString = "";
-		String[] letterPos = play.letterPositionsInRack().split("", 1);
+		String[] letters = play.letterPositionsInRack().split("", 1);
 
-		for(String i : letterPos) {
-			workingString += rack.getCharacter(Integer.valueOf(i));
+		for(String i : letters) {
+			if(Integer.valueOf(i) > 5) {
+				throw new InvalidParameterException("Coordinate given is out of bounds of the rack.");
+			}
+			workingString += rack.getCharacter(Integer.valueOf(i) - 1);
 		}
 		
 		return workingString;

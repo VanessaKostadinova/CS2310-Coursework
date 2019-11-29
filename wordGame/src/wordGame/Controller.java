@@ -3,6 +3,8 @@
  */
 package wordGame;
 
+import exceptions.InvalidParameterException;
+
 /**
  * A controller for the word game.
  * This controller includes the features that the intended
@@ -39,8 +41,9 @@ public interface Controller {
 	 * 
 	 * @return the state of the game board after the tiles 
 	 * have been placed on the board as a String object
+	 * @throws InvalidParameterException 
 	 */
-	public String play(Play play);
+	public String play(Play play) throws InvalidParameterException;
 	
 	/**
 	 * Calculate the points for the tiles placed on the game board in a intended play 
@@ -67,7 +70,8 @@ public interface Controller {
 	 * the game engine will also display all new English words introduced to 
 	 * the game board. With an invalid play, the game engine will also display 
 	 * the invalid letter sequence introduced to the game board.
+	 * @throws InvalidParameterException 
 	 */
-	public String checkValidity(Play play);
+	public String checkValidity(Play play) throws InvalidParameterException;
 	
 }
