@@ -70,7 +70,7 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String play(Play play) throws InvalidParameterException {
+	public String play(Play play) /*throws InvalidParameterException*/ {
 		//Gets the characters to place
 		String[] letters = getWordFromPlay(play).split("", 1);
 		int length = play.letterPositionsInRack().length();
@@ -126,7 +126,7 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String checkValidity(Play play) throws InvalidParameterException {
+	public String checkValidity(Play play) /* throws InvalidParameterException */ {
 		if(boardAnalysis(play) && lexicalAnalysis(getWordFromPlay(play))){
 			return "Valid";
 		}
@@ -163,7 +163,6 @@ public class ConcreteController implements Controller {
 		else {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -188,14 +187,14 @@ public class ConcreteController implements Controller {
 	 * @param play
 	 * @return
 	 */
-	private String getWordFromPlay(Play play) throws InvalidParameterException {
+	private String getWordFromPlay(Play play) /*throws InvalidParameterException */{
 		String workingString = "";
 		String[] letters = play.letterPositionsInRack().split("", 1);
 
 		for(String i : letters) {
-			if(Integer.valueOf(i) > 5) {
+			/*if(Integer.valueOf(i) > 5) {
 				throw new InvalidParameterException("Coordinate given is out of bounds of the rack.");
-			}
+			}*/
 			workingString += rack.getCharacter(Integer.valueOf(i) - 1);
 		}
 		

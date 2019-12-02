@@ -17,7 +17,7 @@ public class Dictionary {
 	private static Dictionary dictionaryInstance;
 	
 	private Dictionary() {
-		words = new HashSet<String>();
+		words = new HashSet<String>(104854);
 		createDictionary();
 	}
 	

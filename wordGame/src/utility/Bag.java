@@ -20,7 +20,7 @@ public class Bag {
 	}
 	
 	private void createBag() {
-		bag = new HashMap<String, Integer>(26);
+		bag = new HashMap<String, Integer>(39);
 		//Put all letters in HashMap
 		bag.put("a", 1); bag.put("b", 2); bag.put("c", 1); bag.put("d", 1); 
 		bag.put("e", 1); bag.put("f", 1); bag.put("g", 2); bag.put("h", 1);

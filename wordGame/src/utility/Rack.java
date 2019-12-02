@@ -31,7 +31,6 @@ public class Rack {
 		if(rackInstance == null) {
 			rackInstance = new Rack(size);
 		}
-
 		return rackInstance;
 	}
 

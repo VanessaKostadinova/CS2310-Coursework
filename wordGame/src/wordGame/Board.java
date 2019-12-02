@@ -4,13 +4,13 @@ package wordGame;
  * The board of the game.
  * 
  * @author Vanessa Kostadinova
- * @version 23/11/2019
+ * @version 29/11/2019
  */
 
 public class Board {
 
 	/**The values of each tile on the board */
-	private String[][] board;
+	private Character[][] board;
 	/**The only instance of Board*/
 	private static Board boardInstance;
 	
@@ -35,14 +35,14 @@ public class Board {
 	 * Accessor for the board array.
 	 * @return Current board array.
 	 */
-	public String[][] getBoard(){
+	public Character[][] getBoard(){
 		return board;
 	}
 	
 	/*
 	 * Places a tile on the board.
 	 */
-	public void setTileOnBoard(int x, int y, String letter) {
+	public void setTileOnBoard(int x, int y, Character letter) {
 		board[x][y] = letter;
 	}
 	
@@ -50,32 +50,31 @@ public class Board {
 	 * Exports the board as a string
 	 */
 	public String toString() {
-		String workingString = "";
+		StringBuilder workingString = new StringBuilder();
 		for(int i = 0; i < 10; i++) {
 			for(int c = 0; c < 10; c++) {
-				workingString += board[i][c] + ",";
+				workingString.append(board[i][c] + ",");
 			}
-			workingString += "\n";
+			workingString.append("\n");
 		}
-		return workingString;
+		return workingString.toString();
 	}
 	
 	/**
 	 * Creates the starting board array used for calculations.
 	 */
 	private void createBoard() {
-		board = new String[][] {
-			{" "," "," "," "," "," "," "," "," "," "},
-			{" "," "," "," ","+","+"," "," "," "," "},
-			{" "," "," "," "," "," "," "," "," "," "},
-			{" "," "," ","+"," "," ","+"," "," "," "},
-			{" "," "," "," "," "," "," "," "," "," "},
-			{" "," "," "," "," "," "," "," "," "," "},
-			{" "," "," ","+"," "," ","+"," "," "," "},
-			{" "," "," "," "," "," "," "," "," "," "},
-			{" "," "," "," ","+","+"," "," "," "," "},
-			{" "," "," "," "," "," "," "," "," "," "}
+		board = new Character[][] {
+			{' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+			{' ',' ',' ',' ','+','+',' ',' ',' ',' '},
+			{' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+			{' ',' ',' ','+',' ',' ','+',' ',' ',' '},
+			{' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+			{' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+			{' ',' ',' ','+',' ',' ','+',' ',' ',' '},
+			{' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+			{' ',' ',' ',' ','+','+',' ',' ',' ',' '},
+			{' ',' ',' ',' ',' ',' ',' ',' ',' ',' '}
 		};
 	}
-
 }
