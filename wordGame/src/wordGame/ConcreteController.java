@@ -72,7 +72,8 @@ public class ConcreteController implements Controller {
 	@Override
 	public String play(Play play) /*throws InvalidParameterException*/ {
 		//Gets the characters to place
-		String[] letters = getWordFromPlay(play).split("", 1);
+		//String[] letters = getWordFromPlay(play).split("", 1);
+		char[] letters = getWordFromPlay(play).toCharArray();
 		int length = play.letterPositionsInRack().length();
 		int[] coords = getCoordsFromPlay(play);
 
@@ -97,20 +98,20 @@ public class ConcreteController implements Controller {
 	//TODO Add +'s to the calculation
 	@Override
 	public String calculateScore(Play play) {
-		String[] letterArray = play.letterPositionsInRack().split("", 1);
+		char[] letterArray = play.letterPositionsInRack().toCharArray();
 		int[] coords = getCoordsFromPlay(play);
 		int runningTotal = 0;
 
-		String boardValue = board.getBoard()[coords[0]][coords[1]];
+		char boardValue = board.getBoard()[coords[0]][coords[1]];
 		int c = 0;
 
-		for(String i:letterArray) {
+		for(char i:letterArray) {
 			c++;
 			
 			switch (boardValue) {
-			case "+":
+			case '+':
 				runningTotal += (bag.getScore(i) * 2);
-			case " ":
+			case ' ':
 				runningTotal += (bag.getScore(i));
 			}
 			
@@ -139,22 +140,22 @@ public class ConcreteController implements Controller {
 
 	private boolean boardAnalysis(Play play) {
 		int[] coords = getCoordsFromPlay(play);
-		String[][] currentBoard = board.getBoard();
+		Character[][] currentBoard = board.getBoard();
 		int length = play.letterPositionsInRack().length();
 
 		//Checks if first letter is valid
-		if(currentBoard[coords[0]][coords[1]] == null | currentBoard[coords[0]][coords[1]] == "+") {
+		if(currentBoard[coords[0]][coords[1]] == null | currentBoard[coords[0]][coords[1]] == '+') {
 			//Checks if all subsequent letters are valid based on the direction
 			switch (play.dir()) {
 			case DOWN:
 				for(int i = 1; i <= length; i++) {
-					if(currentBoard[coords[0]][coords[1] - i] != null && currentBoard[coords[0]][coords[1] - i] != "+") {
+					if(currentBoard[coords[0]][coords[1] - i] != null && currentBoard[coords[0]][coords[1] - i] != '+') {
 						return false;
 					}
 				}
 			case ACROSS:
 				for(int i = 1; i <= length; i++) {
-					if(currentBoard[coords[0] + i][coords[1]] != null && currentBoard[coords[0] + i][coords[1]] != "+") {
+					if(currentBoard[coords[0] + i][coords[1]] != null && currentBoard[coords[0] + i][coords[1]] != '+') {
 						return false;
 					}
 				}
