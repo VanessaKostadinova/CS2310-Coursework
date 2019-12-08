@@ -13,14 +13,17 @@ import java.util.HashMap;
 public class Bag {
 
 	private static Bag bagInstance;
-	private HashMap<Character, Integer> bag;
+	private int[] bag;
 	
 	private Bag() {
 		createBag();
 	}
 	
 	private void createBag() {
-		bag = new HashMap<Character, Integer>(39);
+		
+		bag = new int[]{1,2,1,1,1,1,2,1,1,2,2,1,2,2,1,1,3,1,1,1,1,1,1,3,3,3};
+		
+		/*bag = new HashMap<Character, Integer>(39);
 		//Put all letters in HashMap
 		bag.put('a', 1); bag.put('b', 2); bag.put('c', 1); bag.put('d', 1); 
 		bag.put('e', 1); bag.put('f', 1); bag.put('g', 2); bag.put('h', 1);
@@ -29,7 +32,7 @@ public class Bag {
 		bag.put('q', 3); bag.put('r', 1); bag.put('s', 1); bag.put('t', 1);
 		bag.put('u', 1); bag.put('v', 1); bag.put('w', 1); bag.put('x', 3);
 		bag.put('y', 3); bag.put('z', 3);
-	}
+	*/}
 	
 	public static Bag getBagInstance() {
 		if(bagInstance == null) {
@@ -39,6 +42,10 @@ public class Bag {
 	}
 	
 	public int getScore(Character character) {
-		return bag.get(character);
+		
+		int i = character;
+		i=i-97;
+		return bag[i];
+		//return bag.get(character);
 	}
 }
