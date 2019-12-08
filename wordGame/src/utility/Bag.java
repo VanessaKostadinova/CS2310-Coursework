@@ -43,9 +43,8 @@ public class Bag {
 	
 	public int getScore(Character character) {
 		
-		int i = character;
-		i=i-97;
+		int i = character; //casting character to an int will give ascii code
+		i=i-97; //this will convert the assci alphabet to start at 0	
 		return bag[i];
-		//return bag.get(character);
 	}
 }
