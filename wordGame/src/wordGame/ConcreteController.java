@@ -112,15 +112,15 @@ public class ConcreteController implements Controller {
 			
 			switch (boardValue) {
 			case '+':
-				runningTotal += (bag.getScore(i) * 2);
+				runningTotal += bag.getScore(rack.getCharacter(Integer.parseInt(String.valueOf(i)))) * 2;
 			case ' ':
-				runningTotal += (bag.getScore(i));
+				runningTotal += bag.getScore(rack.getCharacter(Integer.parseInt(String.valueOf(i))));
 			}
 			
 			switch (play.dir()) {
 
 			case DOWN:
-				boardValue = board.getBoard()[coords[0]][coords[1] - c];
+				boardValue = board.getBoard()[coords[0]][coords[1] + c];
 			case ACROSS:
 				boardValue = board.getBoard()[coords[0] + c][coords[1]];
 			}
@@ -184,9 +184,9 @@ public class ConcreteController implements Controller {
 		String startCell = play.cell();
 		char[] stringCoords = startCell.toCharArray();
 
-		coords[0] = Integer.valueOf((Character.toLowerCase(stringCoords[0]))) - 96;
+		coords[0] = Integer.valueOf((Character.toLowerCase(stringCoords[0]))) - 97;
 		
-		coords[1] = Integer.parseInt(String.valueOf(stringCoords[1]));
+		coords[1] = Integer.parseInt(String.valueOf(stringCoords[1])) - 1;
 
 		return coords;
 	}
