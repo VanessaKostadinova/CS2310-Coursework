@@ -1,19 +1,38 @@
 package tests;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import utility.Dictionary;
 
 class DictionaryTest {
 
-	@Test
-	void testGetDictionaryInstance() {
-		fail("Not yet implemented");
+	
+	private static Dictionary dic = new Dictionary();
+	
+	
+	@BeforeAll
+	public static void boardTest() {
+		
 	}
 
+
 	@Test
-	void testCheckWordExists() {
-		fail("Not yet implemented");
+	void testCheckExistantWordExists() {
+		assertTrue(dic.checkWordExists("bag"));
+	}
+	
+	@Test
+	void testCheckNonExistantWordExists2() {
+		assertFalse(dic.checkWordExists("fsadhjasdfihu"));
+	}
+	
+	@Test
+	void testCheckInvalidWordExists3() {
+		assertFalse(dic.checkWordExists(null));
 	}
 
 }

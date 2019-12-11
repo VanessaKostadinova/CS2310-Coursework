@@ -83,13 +83,15 @@ public class ConcreteController implements Controller {
 
 			switch (play.dir()) {
 			case DOWN:
-				for(int i = 1; i <= length; i++) {
-					board.setTileOnBoard(coords[0], coords[1] - i, letters[i]);
+				for(int i = 0; i < length; i++) {
+					board.setTileOnBoard(coords[0], coords[1] + i, letters[i]);
 				}
+				break;
 			case ACROSS:
-				for(int i = 1; i <= length; i++) {
+				for(int i = 0; i < length; i++) {
 					board.setTileOnBoard(coords[0] + i, coords[1], letters[i]);
 				}
+				break;
 			}
 		}
 		return board.toString();
@@ -128,7 +130,10 @@ public class ConcreteController implements Controller {
 
 	@Override
 	public String checkValidity(Play play) /* throws InvalidParameterException */ {
-		if(boardAnalysis(play) && lexicalAnalysis(getWordFromPlay(play))){
+		Boolean test1 = boardAnalysis(play);
+		Boolean test2 = lexicalAnalysis(getWordFromPlay(play));
+		if(test1 && test2){
+		//if(boardAnalysis(play) && lexicalAnalysis(getWordFromPlay(play))){
 			return "Valid";
 		}
 		else return "Invalid";
@@ -144,21 +149,23 @@ public class ConcreteController implements Controller {
 		int length = play.letterPositionsInRack().length();
 
 		//Checks if first letter is valid
-		if(currentBoard[coords[0]][coords[1]] == null | currentBoard[coords[0]][coords[1]] == '+') {
+		if(currentBoard[coords[0]][coords[1]] == ' ' | currentBoard[coords[0]][coords[1]] == '+') {
 			//Checks if all subsequent letters are valid based on the direction
 			switch (play.dir()) {
 			case DOWN:
-				for(int i = 1; i <= length; i++) {
-					if(currentBoard[coords[0]][coords[1] - i] != null && currentBoard[coords[0]][coords[1] - i] != '+') {
+				for(int i = 0; i < length; i++) {
+					if(currentBoard[coords[0]][coords[1] + i] != ' ' && currentBoard[coords[0]][coords[1] + i] != '+') {
 						return false;
 					}
 				}
+				break;
 			case ACROSS:
 				for(int i = 1; i <= length; i++) {
-					if(currentBoard[coords[0] + i][coords[1]] != null && currentBoard[coords[0] + i][coords[1]] != '+') {
+					if(currentBoard[coords[0] + i][coords[1]] != ' ' && currentBoard[coords[0] + i][coords[1]] != '+') {
 						return false;
 					}
 				}
+				break;
 			}
 		}
 		else {
@@ -175,10 +182,11 @@ public class ConcreteController implements Controller {
 	private int[] getCoordsFromPlay(Play play){
 		int[] coords = new int[2];
 		String startCell = play.cell();
-		String[] stringCoords = startCell.split("", 1);
+		char[] stringCoords = startCell.toCharArray();
 
-		coords[0] = Integer.valueOf(stringCoords[0].toLowerCase()) - 96;
-		coords[1]= Integer.valueOf(coords[1]);
+		coords[0] = Integer.valueOf((Character.toLowerCase(stringCoords[0]))) - 96;
+		
+		coords[1] = Integer.parseInt(String.valueOf(stringCoords[1]));
 
 		return coords;
 	}
@@ -190,13 +198,15 @@ public class ConcreteController implements Controller {
 	 */
 	private String getWordFromPlay(Play play) /*throws InvalidParameterException */{
 		String workingString = "";
-		String[] letters = play.letterPositionsInRack().split("", 1);
+		String str = play.letterPositionsInRack();
+		char[] letters = str.toCharArray();
 
-		for(String i : letters) {
-			/*if(Integer.valueOf(i) > 5) {
-				throw new InvalidParameterException("Coordinate given is out of bounds of the rack.");
-			}*/
-			workingString += rack.getCharacter(Integer.valueOf(i) - 1);
+		for(char i : letters) {
+			if(Integer.parseInt(String.valueOf(i)) > 5) {
+				//throw new InvalidParameterException("Coordinate given is out of bounds of the rack.");
+				System.out.println("Coordinate given is out of bounds of the rack.");
+			}
+			workingString += rack.getCharacter(Integer.parseInt(String.valueOf(i)) - 1);
 		}
 		
 		return workingString;

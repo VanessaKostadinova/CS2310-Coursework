@@ -1,5 +1,8 @@
 package utility;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -16,7 +19,7 @@ public class Dictionary {
 	private Scanner file;
 	private static Dictionary dictionaryInstance;
 	
-	private Dictionary() {
+	public Dictionary() {
 		words = new HashSet<String>(104854);
 		createDictionary();
 	}
@@ -30,20 +33,23 @@ public class Dictionary {
 	}
 	
 	private void createDictionary(){
-		file = new Scanner("Dictionary.txt");
-		while(file.hasNext()) {
-			words.add(file.nextLine());
+		
+		//file = new Scanner("Dictionary.txt");
+		try
+		{
+			BufferedReader file = new BufferedReader(new FileReader("Assets/Dictionary.txt"));
+			String line;
+			while ((line = file.readLine()) != null) {
+				words.add(line);
+			}
+			file.close();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
 		}
-		file.close();
 	}
 	
 	public boolean checkWordExists(String word) {
-		if(words.contains(word)) {
-			return true;
-		}
-		
-		else {
-			return false;
-		}
+		return (words.contains(word));
 	}
 }
