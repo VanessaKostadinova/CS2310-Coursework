@@ -10,7 +10,8 @@ import java.util.Scanner;
  * A searchable set of valid words.
  * 
  * @author Vanessa Kostadinova
- * @version 23/11/2019
+ * @author Jedd Morgan
+ * @version 11/12/2019
  */
 
 public class Dictionary {

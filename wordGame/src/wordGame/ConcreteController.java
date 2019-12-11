@@ -13,7 +13,8 @@ import utility.Rack;
  * A concrete implementation of the interface controller.
  * 
  * @author Vanessa Kostadinova
- * @version 29/11/2019
+ * @author Jedd Morgan
+ * @version 11/12/2019
  */
 
 public class ConcreteController implements Controller {
@@ -82,12 +83,12 @@ public class ConcreteController implements Controller {
 			board.setTileOnBoard(coords[0], coords[1], letters[0]);
 
 			switch (play.dir()) {
-			case DOWN:
+			case ACROSS:
 				for(int i = 0; i < length; i++) {
 					board.setTileOnBoard(coords[0], coords[1] + i, letters[i]);
 				}
 				break;
-			case ACROSS:
+			case DOWN:
 				for(int i = 0; i < length; i++) {
 					board.setTileOnBoard(coords[0] + i, coords[1], letters[i]);
 				}
@@ -119,9 +120,9 @@ public class ConcreteController implements Controller {
 			
 			switch (play.dir()) {
 
-			case DOWN:
-				boardValue = board.getBoard()[coords[0]][coords[1] + c];
 			case ACROSS:
+				boardValue = board.getBoard()[coords[0]][coords[1] + c];
+			case DOWN:
 				boardValue = board.getBoard()[coords[0] + c][coords[1]];
 			}
 		}
@@ -152,14 +153,14 @@ public class ConcreteController implements Controller {
 		if(currentBoard[coords[0]][coords[1]] == ' ' | currentBoard[coords[0]][coords[1]] == '+') {
 			//Checks if all subsequent letters are valid based on the direction
 			switch (play.dir()) {
-			case DOWN:
+			case ACROSS:
 				for(int i = 0; i < length; i++) {
 					if(currentBoard[coords[0]][coords[1] + i] != ' ' && currentBoard[coords[0]][coords[1] + i] != '+') {
 						return false;
 					}
 				}
 				break;
-			case ACROSS:
+			case DOWN:
 				for(int i = 1; i <= length; i++) {
 					if(currentBoard[coords[0] + i][coords[1]] != ' ' && currentBoard[coords[0] + i][coords[1]] != '+') {
 						return false;

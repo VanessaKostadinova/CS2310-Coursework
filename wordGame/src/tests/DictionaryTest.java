@@ -8,6 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import utility.Dictionary;
 
+/**
+ * 
+ * @author Jedd Morgan
+ * @version 11/12/2019
+ */
 class DictionaryTest {
 
 	
