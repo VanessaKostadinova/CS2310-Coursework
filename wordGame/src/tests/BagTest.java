@@ -4,11 +4,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class BagTest {
+import utility.Bag;
 
+class BagTest {
+	
+	private static Bag bag = new Bag();
+	
 	@Test
-	void testGetScore() {
-		fail("Not yet implemented");
+	void testGetScoreA() {
+		char a = 'a';
+		bag.getScore(a);
+		
+		//int i = a;
+		//System.out.println(i);
+		
+		assertEquals(1, a);
+		
+		//fail("Not yet implemented");
 	}
 
 }

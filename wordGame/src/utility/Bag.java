@@ -15,7 +15,7 @@ public class Bag {
 	private static Bag bagInstance;
 	private int[] bag;
 	
-	private Bag() {
+	public Bag() {
 		createBag();
 	}
 	
