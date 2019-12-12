@@ -42,9 +42,14 @@ public class Bag {
 	}
 	
 	public int getScore(Character character) {
-		
+		try {
 		int i = character; //casting character to an int will give ascii code
 		i=i-97; //this will convert the assci alphabet to start at 0	
 		return bag[i];
+		}
+		catch(Exception e){
+			System.out.print("error in getting letter score, non letter used");
+			return 0;
+		}
 	}
 }
