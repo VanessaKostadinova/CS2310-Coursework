@@ -156,9 +156,9 @@ public class ConcreteController implements Controller {
 		Boolean test2 = lexicalAnalysis(getWordFromPlay(play));
 		if(test1 && test2)
 		{
-			return "Valid: " + getWordFromPlay(play);
+			return "Valid";
 		}
-		else return "Invalid: " + getWordFromPlay(play);
+		else return "Invalid";
 	}
 
 	private boolean lexicalAnalysis(String word) 
@@ -220,7 +220,7 @@ public class ConcreteController implements Controller {
 	 * @param play
 	 * @return
 	 */
-	private String getWordFromPlay(Play play)
+	public String getWordFromPlay(Play play)
 {
 		StringBuilder workingString = new StringBuilder();
 		//Get and split all the positions from the play

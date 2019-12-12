@@ -76,7 +76,7 @@ public class TUI {
 			display("Check validity...");
 			play = getPlay();
 			if (play != null) {
-				display(controller.checkValidity(play));
+				display(controller.checkValidity(play) + ": " + controller.getWordFromPlay(play));
 			}
 			break;
 		case "6" : // Exits the application
