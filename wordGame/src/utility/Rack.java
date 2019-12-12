@@ -42,6 +42,27 @@ public class Rack {
 		rack[index] = null;
 		missing.add(index);
 	}
+	
+	public void clearRack()
+	{
+		for(int i = 0; i < rack.length; i++)
+		{
+			rack[i] = null;
+			missing.add(i);
+		}
+	}
+	
+	public Boolean isFull()
+	{
+		for(int i = 0; i < rack.length; i++)
+		{
+			if(rack[i] == null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public ArrayList<Integer> getMissing() {
 		return missing;
@@ -66,7 +87,8 @@ public class Rack {
 	public void addCharacters(ArrayList<Character> characters) throws InvalidParameterException {
 		if(characters.size() == missing.size()) {
 			int c = 0;
-			for(int i : missing) {
+			for(int i : missing) 
+			{
 				rack[i] = characters.get(c);
 				c++;
 			}
