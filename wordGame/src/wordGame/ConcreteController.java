@@ -41,12 +41,20 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String refillRack() {
+	public String refillRack()
+	{
+		
+		if (rack.isFull())
+		{
+			rack.clearRack();
+		}
+		
 		//Get list of missing characters and characters to add
 		ArrayList<Integer> missing = rack.getMissing();
 		ArrayList<Character> charsToAdd = new ArrayList<Character>();
 		Random rand = new Random();
-
+		
+		
 		for(int i: missing) {
 			charsToAdd.add( (char) (rand.nextInt(25) + 97));
 		}
@@ -71,7 +79,8 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String play(Play play){
+	public String play(Play play)
+	{
 		//Gets the characters to place
 		//String[] letters = getWordFromPlay(play).split("", 1);
 		char[] letters = getWordFromPlay(play).toCharArray();
@@ -79,20 +88,28 @@ public class ConcreteController implements Controller {
 		int[] coords = getCoordsFromPlay(play);
 
 		//Places characters
-		if(checkValidity(play) == "Valid") {
+		if(checkValidity(play) == "Valid")
+		{
 			board.setTileOnBoard(coords[0], coords[1], letters[0]);
 
-			switch (play.dir()) {
+			switch (play.dir())
+			{
 			case ACROSS:
-				for(int i = 0; i < length; i++) {
+				for(int i = 0; i < length; i++) 
+				{
 					board.setTileOnBoard(coords[0], coords[1] + i, letters[i]);
 				}
 				break;
 			case DOWN:
-				for(int i = 0; i < length; i++) {
+				for(int i = 0; i < length; i++) 
+				{
 					board.setTileOnBoard(coords[0] + i, coords[1], letters[i]);
 				}
 				break;
+			}
+			for(char index: play.letterPositionsInRack().toCharArray())
+			{
+				rack.removeItem(Integer.parseInt(String.valueOf(index)) -1);
 			}
 		}
 		return board.toString();
@@ -108,17 +125,20 @@ public class ConcreteController implements Controller {
 		int c = 0;
 
 		//For each letter in the array, calculate the score based on the position on the board and value of the letter
-		for(char i:letterArray) {
+		for(char i:letterArray) 
+		{
 			c++;
 			
-			switch (boardValue) {
+			switch (boardValue) 
+			{
 			case '+':
-				runningTotal += bag.getScore(rack.getCharacter(Integer.parseInt(String.valueOf(i)))) * 2;
+				runningTotal += bag.getScore(rack.getCharacter(Integer.parseInt(String.valueOf(i)) -1)) * 2;
 			case ' ':
-				runningTotal += bag.getScore(rack.getCharacter(Integer.parseInt(String.valueOf(i))));
+				runningTotal += bag.getScore(rack.getCharacter(Integer.parseInt(String.valueOf(i)) -1));
 			}
 			
-			switch (play.dir()) {
+			switch (play.dir()) 
+			{
 
 			case ACROSS:
 				boardValue = board.getBoard()[coords[0]][coords[1] + c];
@@ -130,20 +150,24 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String checkValidity(Play play){
+	public String checkValidity(Play play)
+	{
 		Boolean test1 = boardAnalysis(play);
 		Boolean test2 = lexicalAnalysis(getWordFromPlay(play));
-		if(test1 && test2) {
-			return "Valid";
+		if(test1 && test2)
+		{
+			return "Valid: " + getWordFromPlay(play);
 		}
-		else return "Invalid";
+		else return "Invalid: " + getWordFromPlay(play);
 	}
 
-	private boolean lexicalAnalysis(String word) {
+	private boolean lexicalAnalysis(String word) 
+	{
 		return dictionary.checkWordExists(word);
 	}
 
-	private boolean boardAnalysis(Play play) {
+	private boolean boardAnalysis(Play play) 
+	{
 		int[] coords = getCoordsFromPlay(play);
 		Character[][] currentBoard = board.getBoard();
 		int length = play.letterPositionsInRack().length();
@@ -196,7 +220,8 @@ public class ConcreteController implements Controller {
 	 * @param play
 	 * @return
 	 */
-	private String getWordFromPlay(Play play){
+	private String getWordFromPlay(Play play)
+{
 		StringBuilder workingString = new StringBuilder();
 		//Get and split all the positions from the play
 		String str = play.letterPositionsInRack();
