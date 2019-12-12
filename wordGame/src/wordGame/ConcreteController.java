@@ -71,7 +71,7 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String play(Play play) /*throws InvalidParameterException*/ {
+	public String play(Play play){
 		//Gets the characters to place
 		//String[] letters = getWordFromPlay(play).split("", 1);
 		char[] letters = getWordFromPlay(play).toCharArray();
@@ -98,7 +98,6 @@ public class ConcreteController implements Controller {
 		return board.toString();
 	}
 
-	//TODO Add +'s to the calculation
 	@Override
 	public String calculateScore(Play play) {
 		char[] letterArray = play.letterPositionsInRack().toCharArray();
@@ -108,6 +107,7 @@ public class ConcreteController implements Controller {
 		char boardValue = board.getBoard()[coords[0]][coords[1]];
 		int c = 0;
 
+		//For each letter in the array, calculate the score based on the position on the board and value of the letter
 		for(char i:letterArray) {
 			c++;
 			
@@ -130,11 +130,10 @@ public class ConcreteController implements Controller {
 	}
 
 	@Override
-	public String checkValidity(Play play) /* throws InvalidParameterException */ {
+	public String checkValidity(Play play){
 		Boolean test1 = boardAnalysis(play);
 		Boolean test2 = lexicalAnalysis(getWordFromPlay(play));
-		if(test1 && test2){
-		//if(boardAnalysis(play) && lexicalAnalysis(getWordFromPlay(play))){
+		if(test1 && test2) {
 			return "Valid";
 		}
 		else return "Invalid";
@@ -197,19 +196,20 @@ public class ConcreteController implements Controller {
 	 * @param play
 	 * @return
 	 */
-	private String getWordFromPlay(Play play) /*throws InvalidParameterException */{
-		String workingString = "";
+	private String getWordFromPlay(Play play){
+		StringBuilder workingString = new StringBuilder();
+		//Get and split all the positions from the play
 		String str = play.letterPositionsInRack();
 		char[] letters = str.toCharArray();
 
+		//For each position, get the appropriate character from the rack and append it to the working string
 		for(char i : letters) {
 			if(Integer.parseInt(String.valueOf(i)) > 5) {
-				//throw new InvalidParameterException("Coordinate given is out of bounds of the rack.");
 				System.out.println("Coordinate given is out of bounds of the rack.");
 			}
-			workingString += rack.getCharacter(Integer.parseInt(String.valueOf(i)) - 1);
+			workingString.append(rack.getCharacter(Integer.parseInt(String.valueOf(i)) - 1));
 		}
 		
-		return workingString;
+		return workingString.toString();
 	}
 }
